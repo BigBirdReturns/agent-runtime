@@ -6,9 +6,12 @@ Purpose
 - Keep tool APIs and execution invisible to the user by default.
 
 Key properties
-- Deterministic planning when using the rules planner.
-- Strict tool contracts and bounded execution (timeouts, retries).
-- Optional debug mode returns a minimal trace for internal testing only.
+- Deterministic planning with a rules planner (auditable).
+- Plan is serialized into trace for replay/audit when debug is enabled.
+- Parallel tool calls collect trace deterministically (no shared mutable trace races).
+- Strict tool input validation (Pydantic) and bounded execution (timeouts, retries, call budget).
+- Optional debug mode returns a minimal trace for internal inspection only.
+- Tool schemas are exposed for integration/audit via /v1/tools/schemas.
 
 Run
   pip install -e .
@@ -20,13 +23,12 @@ Call
     -d '{"input":"What is 12*13 and then add 5?"}'
 
 Response
-  {"output":"12*13 = 156. 156 + 5 = 161."}
+  {"output":"What is 12*13 and then add 5? = 161"}
 
 Debug call (internal only)
   curl -X POST http://localhost:8000/v1/agent/run \
     -H "Content-Type: application/json" \
     -d '{"input":"weather in Seattle and 12*13","debug":true}'
 
-Notes
-- Replace the example tools with real HTTP or MCP adapters.
-- The executor stays the same. Only tools and the planner change.
+Schemas
+  curl http://localhost:8000/v1/tools/schemas

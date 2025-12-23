@@ -1,7 +1,8 @@
 from __future__ import annotations
 import ast
 import operator as op
-from typing import Any
+from typing import Any, Dict
+from pydantic import BaseModel, Field, ValidationError
 
 from agent_runtime.tools.base import Tool, ToolError
 
@@ -14,18 +15,34 @@ _ALLOWED = {
     ast.USub: op.neg,
 }
 
+class MathToolInput(BaseModel):
+    expression: str = Field(..., min_length=1, max_length=200)
+
+class MathToolOutput(BaseModel):
+    result: float
+
 class MathTool(Tool):
     name = "math"
     description = "Evaluates a safe arithmetic expression."
 
+    @property
+    def input_schema(self) -> Dict[str, Any]:
+        return MathToolInput.model_json_schema()
+
+    @property
+    def output_schema(self) -> Dict[str, Any]:
+        return MathToolOutput.model_json_schema()
+
     async def run(self, arguments: dict[str, Any]) -> dict[str, Any]:
-        expr = str(arguments.get("expression", "")).strip()
-        if not expr:
-            raise ToolError("Missing expression", code="bad_input")
-        expr = expr.replace("^", "**")
         try:
-            value = self._eval(expr)
-            return {"result": value}
+            inputs = MathToolInput(**arguments)
+        except ValidationError as e:
+            raise ToolError(f"Invalid input: {e.errors()}", code="bad_input")
+
+        expr = inputs.expression.strip().replace("^", "**")
+        try:
+            value = float(self._eval(expr))
+            return MathToolOutput(result=value).model_dump()
         except Exception as e:
             raise ToolError(f"Invalid expression: {e}", code="bad_input")
 

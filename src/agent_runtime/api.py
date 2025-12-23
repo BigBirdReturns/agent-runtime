@@ -15,6 +15,18 @@ class AgentRunResponse(BaseModel):
     output: str
     trace: list[dict] | None = None
 
+@router.get("/tools/schemas")
+def tool_schemas() -> dict:
+    registry = build_default_registry()
+    out = {}
+    for name, tool in registry.tools.items():
+        out[name] = {
+            "description": getattr(tool, "description", ""),
+            "input_schema": tool.input_schema,
+            "output_schema": tool.output_schema,
+        }
+    return out
+
 @router.post("/agent/run", response_model=AgentRunResponse)
 async def run_agent(req: AgentRunRequest) -> AgentRunResponse:
     registry = build_default_registry()

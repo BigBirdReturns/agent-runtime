@@ -9,7 +9,7 @@ class HttpTool(Tool):
         self.name = name
         self.description = description
         self.url = url
-        self.timeout_s = timeout_s
+        self.timeout_s = float(timeout_s)
         self.retries = max(0, int(retries))
 
     async def run(self, arguments: dict[str, Any]) -> dict[str, Any]:
@@ -23,7 +23,13 @@ class HttpTool(Tool):
             except httpx.TimeoutException as e:
                 last_err = e
             except httpx.HTTPStatusError as e:
-                raise ToolError(f"HTTP status {e.response.status_code}", code="http_error")
+                status = e.response.status_code
+                # Do not retry 4xx client errors by default
+                if 400 <= status < 500:
+                    raise ToolError(f"HTTP {status}", code="http_client_error")
+                # Retry 5xx server errors
+                last_err = e
             except Exception as e:
                 last_err = e
-        raise ToolError(f"HTTP timeout or exception: {last_err}", code="timeout")
+
+        raise ToolError(f"HTTP failed after retries: {last_err}", code="http_retry_exhausted")
