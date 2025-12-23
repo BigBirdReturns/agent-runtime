@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Any
+import json
 import httpx
 
 from agent_runtime.tools.base import Tool, ToolError
@@ -19,15 +20,19 @@ class HttpTool(Tool):
                 async with httpx.AsyncClient(timeout=self.timeout_s) as client:
                     r = await client.post(self.url, json=arguments)
                     r.raise_for_status()
-                    return r.json()
+                    try:
+                        return r.json()
+                    except json.JSONDecodeError as e:
+                        raise ToolError(f"Invalid JSON response: {e}", code="http_invalid_response")
             except httpx.TimeoutException as e:
                 last_err = e
+            except ToolError as e:
+                # Invalid JSON should not retry by default; treat as terminal.
+                raise e
             except httpx.HTTPStatusError as e:
                 status = e.response.status_code
-                # Do not retry 4xx client errors by default
                 if 400 <= status < 500:
                     raise ToolError(f"HTTP {status}", code="http_client_error")
-                # Retry 5xx server errors
                 last_err = e
             except Exception as e:
                 last_err = e

@@ -16,7 +16,13 @@ _ALLOWED = {
 }
 
 class MathToolInput(BaseModel):
-    expression: str = Field(..., min_length=1, max_length=200)
+    expression: str = Field(
+        ...,
+        min_length=1,
+        max_length=200,
+        pattern=r"^[0-9\s\+\-\*/\^\(\)\.]+$",
+        description="Arithmetic expression using digits and + - * / ^ ( ) .",
+    )
 
 class MathToolOutput(BaseModel):
     result: float

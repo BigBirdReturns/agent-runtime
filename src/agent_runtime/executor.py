@@ -7,6 +7,12 @@ from agent_runtime.types import Plan, PlanStep, ToolCall, ExecutionResult
 from agent_runtime.tools.registry import ToolRegistry
 from agent_runtime.tools.base import ToolError
 
+
+# Trace event schema
+# Every trace item includes a "type" discriminator, currently:
+# - {"type": "plan", ...}
+# - {"type": "tool_call", ...}
+
 class Executor:
     def __init__(self, registry: ToolRegistry, *, max_tool_calls: int = 10):
         self.registry = registry
