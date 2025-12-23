@@ -1,0 +1,14 @@
+[project]
+name = "agent-runtime"
+version = "0.2.0"
+description = "Minimal agent runtime with one API endpoint and hidden tools, no LangChain."
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi>=0.110.0",
+  "uvicorn>=0.27.0",
+  "pydantic>=2.6.0",
+  "httpx>=0.26.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
