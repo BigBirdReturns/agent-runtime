@@ -1,0 +1,5 @@
+﻿{
+    "input":  "483*248+93",
+    "debug":  true,
+    "planner":  "ollama_math"
+}

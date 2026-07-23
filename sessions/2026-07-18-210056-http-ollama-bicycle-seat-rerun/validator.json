@@ -1,0 +1,19 @@
+﻿{
+    "status":  "PASS",
+    "validator":  "independent PowerShell response-and-trace assertions",
+    "fresh_expression":  "483*248+93",
+    "independently_computed_expected":  119877,
+    "exact_output":  "483*248+93 = 119877",
+    "native_call_id":  "call_x0d0lyby",
+    "configured_model":  "qwen3.5:9b-q4_K_M",
+    "returned_model":  "qwen3.5:9b-q4_K_M",
+    "provider_ms":  1871,
+    "assertions":  [
+                       "HTTP response parsed",
+                       "exact fresh arithmetic output matched",
+                       "provider call succeeded with exact configured model",
+                       "one native math call with nonempty id entered the plan",
+                       "executor completed the matching call without error"
+                   ],
+    "epistemic_status":  "one real local traversal; cleared once, not a settled routing cell"
+}

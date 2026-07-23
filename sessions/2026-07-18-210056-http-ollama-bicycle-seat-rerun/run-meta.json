@@ -1,0 +1,8 @@
+﻿{
+    "command":  "D:\\Projects\\Agent-Runtime\\.venv\\Scripts\\python.exe -B -m uvicorn agent_runtime.main:app --app-dir src --host 127.0.0.1 --port 49511 --no-access-log",
+    "pid":  22776,
+    "port":  49511,
+    "model":  "qwen3.5:9b-q4_K_M",
+    "expression":  "483*248+93",
+    "expected":  119877
+}

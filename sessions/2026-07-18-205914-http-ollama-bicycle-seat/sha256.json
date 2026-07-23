@@ -1,0 +1,30 @@
+﻿[
+    {
+        "file":  "ollama-model-preflight.json",
+        "sha256":  "37369bae066cd93821e4b75cf6167ab2dfa5ccd5a1db5a9ea048d942b5744ea0"
+    },
+    {
+        "file":  "request.json",
+        "sha256":  "6e3822ebc9389213bc8f1da22ad612389ddf7fd47373e15600c0e38b5c6947c3"
+    },
+    {
+        "file":  "response.json",
+        "sha256":  "0adf86abe6af90f8bf59b4d8652bcb98d7b693812987315c8ba6e007dfdc05cd"
+    },
+    {
+        "file":  "run-meta.json",
+        "sha256":  "daea351e2d109f7129b24c69a9268c5c788a45bbd4bbb56b8a87f7a088f21e53"
+    },
+    {
+        "file":  "uvicorn.stderr.log",
+        "sha256":  "cf6537d156734ee2fec7cb8456341e856a1aca151f63892d9ea1dbd508df95ca"
+    },
+    {
+        "file":  "uvicorn.stdout.log",
+        "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+        "file":  "validator.json",
+        "sha256":  "bd8e49b19131aaa99e5747cea42c6905936495bd4574ed2719508bda6ebdc36d"
+    }
+]

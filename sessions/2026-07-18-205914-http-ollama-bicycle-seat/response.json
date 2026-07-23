@@ -1,0 +1,39 @@
+﻿{
+    "output":  "Use the math tool exactly once to calculate 243*615+201. = 149646",
+    "trace":  [
+                  {
+                      "type":  "provider_call",
+                      "provider":  "ollama",
+                      "configured_model":  "qwen3.5:9b-q4_K_M",
+                      "returned_model":  "qwen3.5:9b-q4_K_M",
+                      "ok":  true,
+                      "http_status":  200,
+                      "ms":  17854
+                  },
+                  {
+                      "type":  "plan",
+                      "user_input":  "Use the math tool exactly once to calculate 243*615+201.",
+                      "steps":  [
+                                    {
+                                        "kind":  "tool_call",
+                                        "tool":  "math",
+                                        "call_id":  "call_4rwuojyh",
+                                        "arguments":  {
+                                                          "expression":  "243*615+201"
+                                                      }
+                                    },
+                                    {
+                                        "kind":  "final",
+                                        "template":  "math"
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "tool_call",
+                      "call_id":  "call_4rwuojyh",
+                      "tool":  "math",
+                      "ok":  true,
+                      "ms":  0
+                  }
+              ]
+}

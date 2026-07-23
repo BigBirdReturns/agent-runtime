@@ -30,5 +30,15 @@ Debug call (internal only)
     -H "Content-Type: application/json" \
     -d '{"input":"weather in Seattle and 12*13","debug":true}'
 
+Local Ollama math planner (explicit opt-in)
+  curl -X POST http://localhost:8000/v1/agent/run \
+    -H "Content-Type: application/json" \
+    -d '{"input":"12*13+5","planner":"ollama_math","debug":true}'
+
+This mode makes one loopback request to the exact local model
+`qwen3.5:9b-q4_K_M`, permits exactly one registered `math` call, performs no
+retry or fallback, and reports Ollama's observed input/output token counters in
+the debug provider trace. Missing counters remain null.
+
 Schemas
   curl http://localhost:8000/v1/tools/schemas
