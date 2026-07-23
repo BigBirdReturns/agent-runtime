@@ -20,8 +20,8 @@ Agent Runtime (No LangChain)
 - Bounded validator-backed work follows root `AGENTS.md`; no web dashboard is required.
 
 ## Staleness
-- generated_at: 2026-07-22
-- source_commit: c44c9af (dirty)
+- generated_at: 2026-07-23
+- source_commit: ae3afee
 - regenerate: `python D:/Projects/Tooling/Estate/main/cards.py Agent-Runtime --write`
 
 This card is GENERATED. If it disagrees with the repository, the repository is right. Do not hand-edit this card — regenerate it: python D:/Projects/Tooling/Estate/main/cards.py Agent-Runtime --write
