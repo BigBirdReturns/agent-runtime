@@ -1,0 +1,7 @@
+# Security posture
+
+Reference-quality code only. **Do not deploy to the public Internet or use with real contacts without a security review.** The supplied service refuses non-loopback binding and requires a sufficiently long operator bearer token. It does not verify persons' real identities or deliver private participant tokens, notifications, or lawful consent receipts. CLI `--token` arguments can leak into command histories; use the environment variable instead. SQLite is unencrypted by default. If using live data, run under a locked-down account with a restricted database directory and an independently managed backup policy.
+
+The SHA-256 receipt chain detects accidental or naive tampering; an administrator with database write access can reconstruct it. Its trust guarantee requires periodic external anchoring. Exported receipts contain pseudonymous participant identifiers, policy hashes, aggregate scores, and decision metadata, which can themselves reveal relationships under correlation attacks. Do not publish receipts with real persons without a privacy and threat review.
+
+This package does not send unsolicited messages, scrape social networks, impersonate people, or bypass platform access controls. Contact sharing requires two participants' consent. Report vulnerabilities privately to your deployment's maintainer; do not submit personal data to a public bug report.

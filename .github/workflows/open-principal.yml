@@ -1,0 +1,26 @@
+name: Open Principal reference checks
+on:
+  push:
+    paths:
+      - "open-principal/**"
+      - ".github/workflows/open-principal.yml"
+  pull_request:
+    paths:
+      - "open-principal/**"
+      - ".github/workflows/open-principal.yml"
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    defaults:
+      run:
+        working-directory: open-principal
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m unittest discover -s tests -v
+      - run: python principal.py demo > /dev/null
